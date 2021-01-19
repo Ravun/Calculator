@@ -34,6 +34,11 @@ function inputNumber(number) {
 }
 
 function inputDecimal(period) {
+  if(calculator.secondOperand === true){
+    calculator.displayValue = '0.';
+    calculator.secondOperand = false;
+    return;
+  }
   if (!calculator.displayValue.includes(period)) // if the displayedvalue does not have a decimal
   {
     calculator.displayValue = calculator.displayValue + period;
@@ -55,7 +60,7 @@ if(operator && calculator.secondOperand){
     calculator.firstOperand = inputNum;
   } else if (operator) { // if its assigned an operator
     const result = calculate(firstOperand, inputNum, operator);
-    calculator.displayValue = String(result); // result is displayed to user
+    calculator.displayValue = `${parseFloat(result.toFixed(7))}`; // result is displayed to user
     calculator.firstOperand = result; // first operand is set from result to use calculator again
   }
   calculator.secondOperand = true;
